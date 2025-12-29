@@ -37,7 +37,7 @@ const mentors = [
   },
 ];
 
-const API_BASE = "http://localhost:3001";
+const API_BASE = "https://startup-idea-30kd.onrender.com";
 
 const AIFriend = () => {
   const [selectedMentor, setSelectedMentor] = useState(null);
