@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/startup-idea/static/css/main.b04ab66b.css",
-    "main.js": "/startup-idea/static/js/main.44e166ad.js",
+    "main.js": "/startup-idea/static/js/main.3e62d24b.js",
     "index.html": "/startup-idea/index.html",
     "main.b04ab66b.css.map": "/startup-idea/static/css/main.b04ab66b.css.map",
-    "main.44e166ad.js.map": "/startup-idea/static/js/main.44e166ad.js.map"
+    "main.3e62d24b.js.map": "/startup-idea/static/js/main.3e62d24b.js.map"
   },
   "entrypoints": [
     "static/css/main.b04ab66b.css",
-    "static/js/main.44e166ad.js"
+    "static/js/main.3e62d24b.js"
   ]
 }
