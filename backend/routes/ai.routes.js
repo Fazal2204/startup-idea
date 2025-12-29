@@ -3,26 +3,40 @@ import { getGeminiResponse } from "../utils/gemini.js";
 
 const router = express.Router();
 
-/* ---------------- TEST ---------------- */
+/* ======================================================
+   TEST ROUTE
+   ====================================================== */
 router.get("/test", async (req, res) => {
   try {
-    const reply = await getGeminiResponse("Reply with: Gemini is working.");
-    res.json({ success: true, reply });
+    const reply = await getGeminiResponse("Reply with exactly: Gemini is working.");
+    return res.json({
+      success: true,
+      reply,
+    });
   } catch (err) {
-    console.error("❌ Gemini test error:", err);
-    res.status(500).json({
+    console.error("❌ Gemini test error:", err.message);
+    return res.status(500).json({
       success: false,
-      error: err.message,
+      error: "Gemini test failed",
+      details: err.message,
     });
   }
 });
 
-/* ---------------- CHAT ---------------- */
+/* ======================================================
+   CHAT ROUTE
+   ====================================================== */
 router.post("/chat", async (req, res) => {
   try {
     const { mentorType, message } = req.body;
 
-    if (!mentorType || !message) {
+    if (typeof mentorType !== "string" || typeof message !== "string") {
+      return res.status(400).json({
+        error: "mentorType and message must be strings",
+      });
+    }
+
+    if (!mentorType.trim() || !message.trim()) {
       return res.status(400).json({
         error: "mentorType and message are required",
       });
@@ -38,7 +52,7 @@ User: ${message}
 
     const reply = await getGeminiResponse(prompt);
 
-    res.json({
+    return res.json({
       messages: [
         {
           role: "assistant",
@@ -51,36 +65,55 @@ User: ${message}
       ],
     });
   } catch (err) {
-    console.error("❌ Chat error:", err);
-    res.status(500).json({
-      error: "AI failed",
+    console.error("❌ Chat error:", err.message);
+    return res.status(500).json({
+      error: "AI chat failed",
       details: err.message,
     });
   }
 });
 
-/* ---------------- RESUME BUILDER (ADDED) ---------------- */
+/* ======================================================
+   RESUME BUILDER ROUTE
+   ====================================================== */
 router.post("/resume", async (req, res) => {
   try {
     const { resumeText, userPreferences } = req.body;
 
-    if (!resumeText || !userPreferences?.dreamJob) {
+    if (typeof resumeText !== "string" || resumeText.trim().length === 0) {
       return res.status(400).json({
-        error: "resumeText and dreamJob are required",
+        error: "resumeText must be a non-empty string",
       });
     }
+
+    if (
+      !userPreferences ||
+      typeof userPreferences.dreamJob !== "string" ||
+      !userPreferences.dreamJob.trim()
+    ) {
+      return res.status(400).json({
+        error: "userPreferences.dreamJob is required",
+      });
+    }
+
+    const experienceLevel =
+      typeof userPreferences.experienceLevel === "string"
+        ? userPreferences.experienceLevel
+        : "Not specified";
 
     const prompt = `
 You are an expert ATS resume evaluator.
 
 Analyze the resume for:
 Role: ${userPreferences.dreamJob}
-Experience Level: ${userPreferences.experienceLevel}
+Experience Level: ${experienceLevel}
 
-IMPORTANT:
+IMPORTANT RULES:
 - Return ONLY valid JSON
 - No markdown
-- No extra explanation
+- No explanations
+- No backticks
+- No extra text
 
 JSON FORMAT:
 {
@@ -107,20 +140,20 @@ ${resumeText}
 
     const rawResponse = await getGeminiResponse(prompt);
 
-    let parsed;
+    let parsedResponse;
     try {
-      parsed = JSON.parse(rawResponse);
+      parsedResponse = JSON.parse(rawResponse);
     } catch (parseErr) {
       console.error("❌ Invalid JSON from Gemini:\n", rawResponse);
       return res.status(500).json({
-        error: "AI returned invalid JSON format",
+        error: "AI returned invalid JSON",
       });
     }
 
-    res.json(parsed);
+    return res.json(parsedResponse);
   } catch (err) {
-    console.error("❌ Resume AI error:", err);
-    res.status(500).json({
+    console.error("❌ Resume AI error:", err.message);
+    return res.status(500).json({
       error: "Resume AI failed",
       details: err.message,
     });
