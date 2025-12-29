@@ -74,7 +74,7 @@ function ResumeBuilder() {
     setAnalysisResult(null);
 
     try {
-      const response = await fetch("http://localhost:3001/api/ai/resume", {
+      const response = await fetch("https://startup-idea-30kd.onrender.com/api/ai/resume", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
