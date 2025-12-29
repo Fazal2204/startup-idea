@@ -2,6 +2,7 @@
   "name": "final-resume-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://Fazal2204.github.io/startup-idea",
   "proxy": "http://localhost:3001",
   "dependencies": {
     "@craco/craco": "^7.1.0",
@@ -47,6 +48,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
+    "gh-pages": "^6.3.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17"
   },
@@ -55,6 +57,8 @@
     "dev": "craco start",
     "build": "craco build",
     "test": "craco test",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   },
   "browserslist": {
