@@ -1,0 +1,101 @@
+/* --------------------------------------------------
+   SAFARI AUTO-SCROLL / FOCUS FIX
+   (Stops page jumping when typing)
+-------------------------------------------------- */
+html {
+  overflow-anchor: none;
+  scroll-behavior: auto;
+}
+
+input,
+textarea {
+  scroll-margin-top: 0;
+}
+
+/* Import Tailwind base, components, and utilities */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import custom fonts */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600&family=Poppins:wght@300;400;500;600&display=swap');
+
+@layer base {
+  body {
+    /* Dark futuristic background */
+    @apply bg-black text-white;
+
+    background-image: 
+      radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a0a 70%),
+      linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+
+    /* FIXED TYPO (was backgrouand-size) */
+    background-size: cover, 50px 50px;
+
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    transition: background 0.3s ease;
+  }
+
+  .cyber-grid {
+    background-image:
+      linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  .hologram {
+    background: linear-gradient(
+      45deg,
+      rgba(0, 212, 255, 0.1),
+      rgba(168, 85, 247, 0.1),
+      rgba(236, 72, 153, 0.1)
+    );
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    transition:
+      border-color 0.3s ease,
+      background 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  /* Hover effects for hologram elements */
+  .hologram:hover {
+    border-color: rgba(0, 212, 255, 0.8);
+    background: linear-gradient(
+      45deg,
+      rgba(0, 212, 255, 0.3),
+      rgba(168, 85, 247, 0.3),
+      rgba(236, 72, 153, 0.3)
+    );
+    box-shadow:
+      0 0 20px rgba(0, 212, 255, 0.5),
+      0 0 30px rgba(168, 85, 247, 0.4),
+      0 0 40px rgba(236, 72, 153, 0.3);
+  }
+
+  /* Neon text hover effect */
+  .hover-neon:hover {
+    color: #00d4ff;
+    text-shadow:
+      0 0 10px #00d4ff,
+      0 0 20px #00d4ff,
+      0 0 30px #a855f7,
+      0 0 40px #ec4899;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+
+  /* Smooth transition for links and buttons */
+  a,
+  button {
+    transition: all 0.3s ease;
+    will-change: transform;
+  }
+
+  a:hover,
+  button:hover {
+    color: #00d4ff;
+    transform: translateZ(0) scale(1.05);
+  }
+}
