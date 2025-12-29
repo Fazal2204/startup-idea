@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/startup-idea/static/css/main.b04ab66b.css",
+    "main.js": "/startup-idea/static/js/main.80932c56.js",
+    "index.html": "/startup-idea/index.html",
+    "main.b04ab66b.css.map": "/startup-idea/static/css/main.b04ab66b.css.map",
+    "main.80932c56.js.map": "/startup-idea/static/js/main.80932c56.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b04ab66b.css",
+    "static/js/main.80932c56.js"
+  ]
+}
